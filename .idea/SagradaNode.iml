@@ -2,11 +2,13 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/../untitled/.tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/../untitled/temp" />
-      <excludeFolder url="file://$MODULE_DIR$/../untitled/tmp" />
+      <excludeFolder url="file://$USER_HOME$/untitled/.tmp" />
+      <excludeFolder url="file://$USER_HOME$/untitled/temp" />
+      <excludeFolder url="file://$USER_HOME$/untitled/tmp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="SagradaNode node_modules" level="project" />
   </component>
 </module>
+

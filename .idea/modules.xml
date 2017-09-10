@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../SagradaNode/.idea/SagradaNode.iml" filepath="$PROJECT_DIR$/../SagradaNode/.idea/SagradaNode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SagradaNode.iml" filepath="$PROJECT_DIR$/.idea/SagradaNode.iml" />
     </modules>
   </component>
 </project>
+
