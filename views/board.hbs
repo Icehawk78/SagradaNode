@@ -1,0 +1,9 @@
+<table>
+    {{#each board as |row index|}}
+        <tr>
+            {{#each row as |cell index|}}
+                <td>{{cell.x}}, {{cell.y}}</td>
+            {{/each}}
+        </tr>
+    {{/each}}
+</table>
