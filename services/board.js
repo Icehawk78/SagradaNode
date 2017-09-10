@@ -1,8 +1,10 @@
-var _ = require('lodash');
+let _ = require('lodash');
 
-var board = {};
-var width = 5;
-var height = 4;
+let board = {};
+const width = 5;
+const height = 4;
+const colors = ['blue', 'red', 'green', 'yellow', 'purple'];
+const pips = [1, 2, 3, 4, 5, 6];
 
 board.initialize = function() {
     return {
@@ -11,8 +13,8 @@ board.initialize = function() {
                 return {
                     x: x,
                     y: y,
-                    rules: {color: null, number: null},
-                    die: {color: null, number: null}
+                    rules: {color: null, pips: null},
+                    die: {color: null, pips: null}
                 };
             });
         }),
@@ -22,7 +24,22 @@ board.initialize = function() {
 
 function valid_dice(x, y) {
     let self = this;
-    return self.rows[x][y];
+    let dice = {
+        colors: _.clone(colors),
+        pips: _.clone(pips)
+    };
+    let cell = self.rows[x][y];
+    if (cell.die.color !== null) {
+        dice = {
+            colors: [],
+            pips: []
+        };
+    } else if (cell.rules.color !== null) {
+        dice.colors = [cell.rules.color];
+    } else if (cell.rules.pips !== null) {
+        dice.pips = [cell.rules.pips];
+    }
+    return dice;
 }
 
 

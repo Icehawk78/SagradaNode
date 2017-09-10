@@ -1,5 +1,5 @@
 <table>
-    {{#each board as |row index|}}
+    {{#each board.row as |row index|}}
         <tr>s
             {{#each row as |cell index|}}
                 <td>{{cell.x}}, {{cell.y}}</td>
@@ -7,7 +7,3 @@
         </tr>
     {{/each}}
 </table>
-
-<div>
-{{board.valid_dice(2,3)}}
-</div>
