@@ -18,7 +18,8 @@ board.initialize = function() {
                 };
             });
         }),
-        valid_dice: valid_dice
+        valid_dice: valid_dice,
+        place_die: place_die
     };
 };
 
@@ -39,8 +40,27 @@ function valid_dice(x, y) {
     } else if (cell.rules.pips !== null) {
         dice.pips = [cell.rules.pips];
     }
+    let neighbors = _.compact([
+        x !== 0 ? self.rows[x - 1][y] : null,
+        x !== self.rows.length ? self.rows[x + 1][y] : null,
+        y !== 0 ? self.rows[x][y - 1] : null,
+        y !== self.rows[x].length ? self.rows[x][y + 1] : null
+    ]);
+    let neighbor_colors = _.map(neighbors, 'die.color');
+    let neighbor_pips = _.map(neighbors, 'die.pips');
+    dice.colors = _.difference(dice.colors, neighbor_colors);
+    dice.pips = _.difference(dice.pips, neighbor_pips);
     return dice;
 }
 
+function place_die(die, x, y) {
+    let self = this;
+    let available = self.valid_dice(x, y);
+    if (_(available.colors).includes(die.color) && _(available.pips).includes(die.pips)) {
+        self.rows[x][y].die = die;
+    } else {
+        console.log(available);
+    }
+}
 
 module.exports = board;
