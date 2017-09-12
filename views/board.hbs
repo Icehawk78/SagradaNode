@@ -1,8 +1,8 @@
 <table>
-    {{#each board.row as |row index|}}
-        <tr>s
+    {{#each board.rows as |row index|}}
+        <tr>
             {{#each row as |cell index|}}
-                <td>{{cell.x}}, {{cell.y}}</td>
+                <td style="width: 50px; height: 50px; border: 1px black solid; background-color: {{cell.die.color}}; color: white; text-align: center">{{cell.die.pips}}</td>
             {{/each}}
         </tr>
     {{/each}}
