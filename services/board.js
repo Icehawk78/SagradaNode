@@ -1,15 +1,15 @@
 let _ = require('lodash');
 
 let board = {};
-const width = 5;
-const height = 4;
-const colors = ['blue', 'red', 'green', 'yellow', 'purple'];
-const pips = [1, 2, 3, 4, 5, 6];
+const WIDTH = 5;
+const HEIGHT = 4;
+const COLORS = ['blue', 'red', 'green', 'yellow', 'purple'];
+const PIPS = [1, 2, 3, 4, 5, 6];
 
 board.initialize = function() {
     return {
-        rows: _.times(width, (x) => {
-            return _.times(height, (y) => {
+        rows: _.times(WIDTH, (x) => {
+            return _.times(HEIGHT, (y) => {
                 return {
                     x: x,
                     y: y,
@@ -19,15 +19,17 @@ board.initialize = function() {
             });
         }),
         valid_dice: valid_dice,
-        place_die: place_die
+        place_die: place_die,
+        all_colors: COLORS,
+        all_pips: PIPS
     };
 };
 
 function valid_dice(x, y) {
     let self = this;
     let dice = {
-        colors: _.clone(colors),
-        pips: _.clone(pips)
+        colors: _.clone(COLORS),
+        pips: _.clone(PIPS)
     };
     let cell = self.rows[x][y];
     if (cell.die.color !== null) {
@@ -56,10 +58,11 @@ function valid_dice(x, y) {
 function place_die(die, x, y) {
     let self = this;
     let available = self.valid_dice(x, y);
-    if (_(available.colors).includes(die.color) && _(available.pips).includes(die.pips)) {
+    if (_(available.colors).includes(die.color) && _(available.pips).includes(parseInt(die.pips))) {
         self.rows[x][y].die = die;
+        return true;
     } else {
-        console.log(available);
+        return available;
     }
 }
 
