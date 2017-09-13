@@ -15,7 +15,15 @@
     {{#each board.rows as |row x|}}
         <tr>
             {{#each row as |cell y|}}
-                <td style="width: 50px; height: 50px; border: 1px black solid; background-color: {{cell.die.color}}; color: white; text-align: center" onclick="place_die({{x}}, {{y}})">{{cell.die.pips}}</td>
+                {{#if cell.die.color}}
+                    <td class="placed-die {{cell.die.color}}">{{cell.die.pips}}</td>
+                {{else if cell.rules.color}}
+                    <td class="empty-color-rule {{cell.rules.color}}" onclick="place_die({{x}}, {{y}})"></td>
+                {{else if cell.rules.pips}}
+                    <td class="empty-number-rule" onclick="place_die({{x}}, {{y}})">{{cell.rules.pips}}</td>
+                {{else}}
+                    <td onclick="place_die({{x}}, {{y}})"></td>
+                {{/if}}
             {{/each}}
         </tr>
     {{/each}}

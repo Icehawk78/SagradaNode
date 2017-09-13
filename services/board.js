@@ -22,6 +22,7 @@ board.initialize = function(private_color) {
         valid_dice: valid_dice,
         place_die: place_die,
         calculate_score: calculate_score,
+        randomize_rules: randomize_rules,
         all_colors: COLORS,
         all_pips: PIPS
     };
@@ -70,11 +71,25 @@ function place_die(die, x, y) {
 
 function calculate_score() {
     let self = this;
-    // console.log(_(self.rows).flatten().filter((r) => r.die.color === self.private_color).value());
     return _(self.rows)
         .flatten()
         .filter((r) => r.die.color === self.private_color)
         .reduce((sum, cell) => sum + parseInt(cell.die.pips), 0);
+}
+
+function randomize_rules() {
+    let self = this;
+    _.forEach(self.rows, (r) => {
+        _.forEach(r, (cell) => {
+            if (Math.random() < 0.4) {
+                if (Math.random() < 0.5) {
+                    cell.rules.color = _.sample(COLORS);
+                } else {
+                    cell.rules.pips = _.sample(PIPS);
+                }
+            }
+        });
+    });
 }
 
 module.exports = board;
