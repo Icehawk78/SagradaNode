@@ -4,9 +4,9 @@ let board = {};
 const WIDTH = 5;
 const HEIGHT = 4;
 const COLORS = ['blue', 'red', 'green', 'yellow', 'purple'];
-const PIPS = [1, 2, 3, 4, 5, 6];
+const PIPS = ['1', '2', '3', '4', '5', '6'];
 
-board.initialize = function() {
+board.initialize = function(private_color) {
     return {
         rows: _.times(WIDTH, (x) => {
             return _.times(HEIGHT, (y) => {
@@ -18,8 +18,10 @@ board.initialize = function() {
                 };
             });
         }),
+        private_color: private_color,
         valid_dice: valid_dice,
         place_die: place_die,
+        calculate_score: calculate_score,
         all_colors: COLORS,
         all_pips: PIPS
     };
@@ -44,7 +46,7 @@ function valid_dice(x, y) {
     }
     let neighbors = _.compact([
         x !== 0 ? self.rows[x - 1][y] : null,
-        x !== self.rows.length ? self.rows[x + 1][y] : null,
+        x !== self.rows.length - 1 ? self.rows[x + 1][y] : null,
         y !== 0 ? self.rows[x][y - 1] : null,
         y !== self.rows[x].length ? self.rows[x][y + 1] : null
     ]);
@@ -58,12 +60,21 @@ function valid_dice(x, y) {
 function place_die(die, x, y) {
     let self = this;
     let available = self.valid_dice(x, y);
-    if (_(available.colors).includes(die.color) && _(available.pips).includes(parseInt(die.pips))) {
+    if (_(available.colors).includes(die.color) && _(available.pips).includes(die.pips)) {
         self.rows[x][y].die = die;
         return true;
     } else {
         return available;
     }
+}
+
+function calculate_score() {
+    let self = this;
+    // console.log(_(self.rows).flatten().filter((r) => r.die.color === self.private_color).value());
+    return _(self.rows)
+        .flatten()
+        .filter((r) => r.die.color === self.private_color)
+        .reduce((sum, cell) => sum + parseInt(cell.die.pips), 0);
 }
 
 module.exports = board;
