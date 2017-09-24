@@ -1,0 +1,73 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+
+td {
+  width: 50px;
+  height: 50px;
+  border: 1px black solid;
+  text-align: center;
+}
+
+.placed-die.blue {
+  background-color: blue;
+  color: aliceblue;
+}
+
+.placed-die.red {
+  background-color: red;
+  color: mistyrose;
+}
+
+.placed-die.green {
+  background-color: darkgreen;
+  color: aquamarine;
+}
+
+.placed-die.purple {
+  background-color: darkmagenta;
+  color: lavender;
+}
+
+.placed-die.yellow {
+  background-color: darkgoldenrod;
+  color: lightgoldenrodyellow;
+}
+
+.empty-color-rule {
+  cursor: hand;
+}
+
+.empty-color-rule.blue {
+  background-image: linear-gradient(-45deg, blue 25%, transparent 25%, transparent 50%, blue 50%, blue 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+
+.empty-color-rule.red {
+  background-image: linear-gradient(-45deg, red 25%, transparent 25%, transparent 50%, red 50%, red 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+
+.empty-color-rule.purple {
+  background-image: linear-gradient(-45deg, darkmagenta 25%, transparent 25%, transparent 50%, darkmagenta 50%, darkmagenta 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+
+.empty-color-rule.green {
+  background-image: linear-gradient(-45deg, darkgreen 25%, transparent 25%, transparent 50%, darkgreen 50%, darkgreen 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+
+.empty-color-rule.yellow {
+  background-image: linear-gradient(-45deg, darkgoldenrod 25%, transparent 25%, transparent 50%, darkgoldenrod 50%, darkgoldenrod 75%, transparent 75%, transparent);
+  background-size: 10px 10px;
+}
+
+.empty-number-rule {
+  background-color: grey;
+  color: white;
+}

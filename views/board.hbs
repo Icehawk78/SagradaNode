@@ -1,0 +1,40 @@
+<script>
+    current_die = {
+        color: null,
+        pips: null
+    };
+    function select_die(color, pips) {
+        current_die.color = color;
+        current_die.pips = pips;
+    }
+    function place_die(x, y) {
+        $.post('board/die', {die: current_die, x: x, y: y}, (res) => console.log(res));
+    }
+</script>
+<table>
+    {{#each board.rows as |row x|}}
+        <tr>
+            {{#each row as |cell y|}}
+                {{#if cell.die.color}}
+                    <td class="placed-die {{cell.die.color}}">{{cell.die.pips}}</td>
+                {{else if cell.rules.color}}
+                    <td class="empty-color-rule {{cell.rules.color}}" onclick="place_die({{x}}, {{y}})"></td>
+                {{else if cell.rules.pips}}
+                    <td class="empty-number-rule" onclick="place_die({{x}}, {{y}})">{{cell.rules.pips}}</td>
+                {{else}}
+                    <td onclick="place_die({{x}}, {{y}})"></td>
+                {{/if}}
+            {{/each}}
+        </tr>
+    {{/each}}
+</table>
+<span>Place dice:</span>
+<table>
+    {{#each board.all_colors as |color index|}}
+        <tr>
+            {{#each ../board.all_pips as |pip index|}}
+                <td class="placed-die {{color}}" style="cursor: hand;" onclick="select_die('{{color}}', {{pip}})">{{pip}}</td>
+            {{/each}}
+        </tr>
+    {{/each}}
+</table>
