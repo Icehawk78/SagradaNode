@@ -28,10 +28,13 @@
         </tr>
     {{/each}}
 </table>
-<div>
+<span>Place dice:</span>
+<table>
     {{#each board.all_colors as |color index|}}
-        {{#each ../board.all_pips as |pip index|}}
-            <a href="#" style="color: {{color}}" onclick="select_die('{{color}}', {{pip}})">{{pip}}</a>
-        {{/each}}
+        <tr>
+            {{#each ../board.all_pips as |pip index|}}
+                <td class="placed-die {{color}}" style="cursor: hand;" onclick="select_die('{{color}}', {{pip}})">{{pip}}</td>
+            {{/each}}
+        </tr>
     {{/each}}
-</div>
+</table>
