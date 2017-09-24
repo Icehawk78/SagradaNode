@@ -9,7 +9,7 @@ let _ = require('lodash');
 
 let index = require('./routes/index');
 let users = require('./routes/users');
-let board = require('./routes/board');
+let game = require('./routes/game');
 
 let app = express();
 
@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/board', board);
+app.use('/game', game);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

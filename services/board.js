@@ -71,10 +71,16 @@ function place_die(die, x, y) {
 
 function calculate_score() {
     let self = this;
-    return _(self.rows)
+    let private_points = _(self.rows)
         .flatten()
         .filter((r) => r.die.color === self.private_color)
         .reduce((sum, cell) => sum + parseInt(cell.die.pips), 0);
+    let empty_spaces = _(self.rows)
+        .flatten()
+        .filter(['die.color', null])
+        .value()
+        .length;
+    return private_points - empty_spaces;
 }
 
 function randomize_rules() {
