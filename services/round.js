@@ -19,21 +19,34 @@ round.initialize = function (players, round_number){
     return {
         available_dice: null,
         turns: turns,
-        draw_dice: draw_dice
+        draw_dice: draw_dice,
+        current_turn: current_turn,
+        remaining_dice: remaining_dice
     };
 };
 
 function draw_dice(game_available_colors) {
     let self = this;
-    let round_colors = _.sampleSize(game_available_colors, self.turns.length + 1);
-    let round_available_dice = _.map(round_colors, (color) => {
-        return {
-            color: color,
-            pips: _.sample(PIPS)
-        };
-    });
-    self.available_dice = round_available_dice;
-    return diff(game_available_colors, round_colors);
+    self.available_dice = _(game_available_colors)
+        .sampleSize(self.turns.length + 1)
+        .map((color) => {
+            return {
+                color: color,
+                pips: _.sample(PIPS)
+            };
+        })
+        .value();
+    return diff(game_available_colors, _.map(self.available_dice, 'color'));
+}
+
+function current_turn() {
+    let self = this;
+    return _.find(self.turns, ['placed_die', null]) || null;
+}
+
+function remaining_dice() {
+    let self = this;
+    return _.concat(_.difference(_.times(self.available_dice.length), _(self.turns).map('placed_die').compact().value()), -1);
 }
 
 function diff(arr1, arr2) {

@@ -1,28 +1,31 @@
 <script>
     current_die = {
+        index: null,
         color: null,
         pips: null
     };
-    function select_die(color, pips) {
+    function select_die(index, color, pips) {
+        current_die.index  = index;
         current_die.color = color;
         current_die.pips = pips;
     }
     function place_die(x, y) {
-        $.post('board/die', {die: current_die, x: x, y: y}, (res) => {
-            console.log(res);
-            let cell = $('#' + x + '-' + y);
-            if(res === true){
-                console.log('current_die');
-                console.log(current_die);
-                cell.addClass('placed-die');
-                cell.addClass(current_die.color);
-                cell.html(current_die.pips);
-                cell.removeClass('empty-color-rule');
-                cell.removeClass('empty-number-rule');
-            }
-        });
+        if (current_die.index !== null) {
+            $.post('die', {die: current_die.index, x: x, y: y}, (res) => {
+                console.log(res);
+                let cell = $('#' + x + '-' + y);
+                if (res === true) {
+                    cell.addClass('placed-die');
+                    cell.addClass(current_die.color);
+                    cell.html(current_die.pips);
+                    cell.removeClass('empty-color-rule');
+                    cell.removeClass('empty-number-rule');
+                }
+            });
+        }
     }
 </script>
+<span>It is {{#unless my_turn}}<b>not </b>{{/unless}}your turn</span>
 <table>
     {{#each board.rows as |row x|}}
         <tr>
@@ -42,11 +45,10 @@
 </table>
 <span>Place dice:</span>
 <table>
-    {{#each board.all_colors as |color index|}}
-        <tr>
-            {{#each ../board.all_pips as |pip index|}}
-                <td class="placed-die {{color}}" style="cursor: hand;" onclick="select_die('{{color}}', {{pip}})">{{pip}}</td>
-            {{/each}}
-        </tr>
-    {{/each}}
+    <tr>
+        {{#each available_dice as |die index|}}
+            <td class="{{#ifIn index ../remaining_dice }}placed-die{{else}}empty-color-rule{{/ifIn}} {{die.color}}" style="cursor: hand;" onclick="select_die({{index}}, '{{die.color}}', {{die.pips}})">{{die.pips}}</td>
+        {{/each}}
+        <td class="empty-number-rule" onclick="select_die(-1, null, null)">PASS</td>
+    </tr>
 </table>
