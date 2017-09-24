@@ -32,7 +32,7 @@ function draw_dice(game_available_colors) {
             pips: _.sample(PIPS)
         };
     });
-    console.log(round_available_dice);
+    self.available_dice = round_available_dice;
     return _.difference(game_available_colors, round_colors);
 }
 
