@@ -8,7 +8,19 @@
         current_die.pips = pips;
     }
     function place_die(x, y) {
-        $.post('board/die', {die: current_die, x: x, y: y}, (res) => console.log(res));
+        $.post('board/die', {die: current_die, x: x, y: y}, (res) => {
+            console.log(res);
+            let cell = $('#' + x + '-' + y);
+            if(res === true){
+                console.log('current_die');
+                console.log(current_die);
+                cell.addClass('placed-die');
+                cell.addClass(current_die.color);
+                cell.html(current_die.pips);
+                cell.removeClass('empty-color-rule');
+                cell.removeClass('empty-number-rule');
+            }
+        });
     }
 </script>
 <table>
@@ -16,13 +28,13 @@
         <tr>
             {{#each row as |cell y|}}
                 {{#if cell.die.color}}
-                    <td class="placed-die {{cell.die.color}}">{{cell.die.pips}}</td>
+                    <td id="{{x}}-{{y}}" class="placed-die {{cell.die.color}}">{{cell.die.pips}}</td>
                 {{else if cell.rules.color}}
-                    <td class="empty-color-rule {{cell.rules.color}}" onclick="place_die({{x}}, {{y}})"></td>
+                    <td id="{{x}}-{{y}}" class="empty-color-rule {{cell.rules.color}}" onclick="place_die({{x}}, {{y}})"></td>
                 {{else if cell.rules.pips}}
-                    <td class="empty-number-rule" onclick="place_die({{x}}, {{y}})">{{cell.rules.pips}}</td>
+                    <td id="{{x}}-{{y}}" class="empty-number-rule" onclick="place_die({{x}}, {{y}})">{{cell.rules.pips}}</td>
                 {{else}}
-                    <td onclick="place_die({{x}}, {{y}})"></td>
+                    <td id="{{x}}-{{y}}" onclick="place_die({{x}}, {{y}})"></td>
                 {{/if}}
             {{/each}}
         </tr>
