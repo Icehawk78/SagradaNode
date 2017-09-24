@@ -1,9 +1,13 @@
 let _ = require('lodash');
 let board = require('./board');
+let round = require ('./round');
 
 const COLORS = ['blue', 'red', 'green', 'yellow', 'purple'];
 // const PIPS = ['1', '2', '3', '4', '5', '6'];
 let game = {};
+let test_round = round.initialize(['Nick','Shaila'],5);
+let round_dice = test_round.draw_dice(_.flatten(_.times(4 * 2, () => _.clone(COLORS))));
+console.log(round_dice);
 
 game.initialize = function(player_count) {
     let remaining_colors = _.clone(COLORS);

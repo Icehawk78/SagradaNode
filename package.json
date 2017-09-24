@@ -8,11 +8,12 @@
   "dependencies": {
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.6.3",
+    "debug": "^2.6.9",
     "express": "~4.15.2",
     "hbs": "~4.0.1",
     "lodash": "^4.17.4",
     "morgan": "~1.8.1",
+    "rotate-array": "^1.1.0",
     "serve-favicon": "^2.4.4"
   }
 }
