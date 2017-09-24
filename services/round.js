@@ -32,8 +32,19 @@ function draw_dice(game_available_colors) {
             pips: _.sample(PIPS)
         };
     });
-    console.log(round_available_dice);
-    return _.difference(game_available_colors, round_colors);
+    return diff(game_available_colors, round_colors);
+}
+
+function diff(arr1, arr2) {
+    let res = arr1.filter((val) => {
+        let found_index = arr2.indexOf(val);
+        if (found_index > -1) {
+            arr2.splice(found_index, 1);
+            return false;
+        }
+        return true;
+    });
+    return res;
 }
 
 module.exports = round;
