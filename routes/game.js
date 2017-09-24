@@ -1,10 +1,8 @@
 let express = require('express');
 let router = express.Router();
+let _ = require('lodash');
 let board = require('../services/board');
 let game = require('../services/game');
-
-let my_board = board.initialize('blue');
-my_board.randomize_rules();
 
 let my_game = game.initialize(2);
 
@@ -24,6 +22,26 @@ let my_game = game.initialize(2);
 //     console.log(my_board.calculate_score());
 //     res.send(response);
 // });
+
+router.get('/', (req, res, next) => {
+    res.render('game', {
+        title: 'Sagrada Overview',
+        game: my_game,
+        current_player: my_game.current_round().current_turn() !== null ? my_game.current_round().current_turn().player : -1,
+        players: _.map(my_game.players, (p) => {
+            return {
+                id: p.id,
+                color: p.board.private_color,
+                score: p.board.calculate_score()
+            }
+        })
+    });
+});
+
+router.get('/reset', (req, res, next) => {
+    my_game = game.initialize(2);
+    res.send(true);
+});
 
 router.get('/json', (req, res, next) => {
     console.log(my_game);

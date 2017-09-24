@@ -46,7 +46,7 @@ function current_turn() {
 
 function remaining_dice() {
     let self = this;
-    return _.concat(_.difference(_.times(self.available_dice.length), _(self.turns).map('placed_die').compact().value()), -1);
+    return _.concat(_.difference(_.times(self.available_dice.length), _.map(self.turns, 'placed_die')), -1);
 }
 
 function diff(arr1, arr2) {

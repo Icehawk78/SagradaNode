@@ -25,7 +25,7 @@
         }
     }
 </script>
-<span>It is {{#unless my_turn}}<b>not </b>{{/unless}}your turn</span>
+<span>You are {{board.private_color}}. It is {{#unless my_turn}}<b>not </b>{{/unless}}your turn</span>
 <table>
     {{#each board.rows as |row x|}}
         <tr>

@@ -1,0 +1,17 @@
+<h1>Sagrada</h1>
+<span>The current game is with {{game.players.length}} players.</span>
+<span>It is currently player {{current_player}}'s turn.</span>
+<table>
+    <tr>
+        <th>ID</th>
+        <!--<th>Color</th>-->
+        <th>Score</th>
+    </tr>
+    {{#each players as |p index|}}
+        <tr>
+            <td style="width: 60%"><a href="/game/{{p.id}}/">View Player {{p.id}}'s Board</a></td>
+            <!--<td style="width: 20%">{{p.color}}</td>-->
+            <td style="width: 20%">{{p.score}}</td>
+        </tr>
+    {{/each}}
+</table>
