@@ -43,6 +43,16 @@ router.get('/reset', (req, res, next) => {
     res.send(true);
 });
 
+router.get('/reset/:player_count', (req, res, next) => {
+    let player_count = parseInt(req.params.player_count);
+    if (player_count > 0 && player_count < 5) {
+        my_game = game.initialize(player_count);
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+});
+
 router.get('/json', (req, res, next) => {
     console.log(my_game);
     res.send(my_game);

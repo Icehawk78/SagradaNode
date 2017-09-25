@@ -21,7 +21,7 @@ game.initialize = function(player_count) {
     let rounds = _.times(10, (round_number) => {
         return round.initialize(_.map(players, 'id'), round_number);
     });
-    let remaining_colors = _.flatten(_.times(4 * player_count, () => _.clone(COLORS))).sort();
+    let remaining_colors = _.flatten(_.times((4 * player_count) + 2, () => _.clone(COLORS))).sort();
     remaining_colors = rounds[0].draw_dice(remaining_colors);
 
     return {
